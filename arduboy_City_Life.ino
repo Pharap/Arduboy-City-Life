@@ -16,7 +16,6 @@ bool sfxToggle = true;
 uint32_t money = 50;
 
 uint8_t dice = 0;
-bool didDiceRoll = false;
 uint32_t delayDice = 0;
 
 uint8_t cursorIndexTitle = 0;
@@ -365,10 +364,8 @@ void soundExit() {
 
 void diceScreen() {
 
- if (arduboy.justPressed(A_BUTTON) && !didDiceRoll) {
+ if (arduboy.justPressed(A_BUTTON)) {
   diceRandom();
-  delayDice = (millis() + (4 * 1000));
-  didDiceRoll = true;
 
   if (dice < 4 && dice > 0) {
     money = money / 2;
@@ -378,9 +375,8 @@ void diceScreen() {
     money = money * 2;
   }
 
-  if (didDiceRoll) {
-    gameState = GameState::GameDiceDelay;
-  }
+  delayDice = (millis() + (4 * 1000));
+  gameState = GameState::GameDiceDelay;
  }
 
   printMoney();
@@ -392,9 +388,7 @@ void diceScreenDelay() {
   uint32_t currentDice = millis();
 
   if (currentDice >= delayDice) {
-    didDiceRoll = false;
     gameState = GameState::GameDice;
-    diceRandom();
   }
 
   int remainingSecondsDice = ((delayDice - currentDice) / 1000);
