@@ -18,7 +18,6 @@ uint32_t money = 50;
 uint8_t dice = 0;
 uint8_t didDiceRoll = 0;
 uint32_t delayDice = 0;
-bool diceRestart = false;
 
 uint8_t cursorIndexTitle = 0;
 uint8_t cursorTitleX = 88;
@@ -366,11 +365,10 @@ void soundExit() {
 
 void diceScreen() {
 
- if (arduboy.justPressed(A_BUTTON) && didDiceRoll == 0 && diceRestart == false) {
+ if (arduboy.justPressed(A_BUTTON) && didDiceRoll == 0) {
   diceRandom();
   delayDice = (millis() + (4 * 1000));
   didDiceRoll = 1;
-  diceRestart == true;
  }
 
  if (dice < 4 && dice > 0) {
@@ -408,11 +406,5 @@ void diceScreenDelay() {
 }
 
 void diceRandom() {
-  if (diceRestart == false) {
-    dice = random(1, 7);
-  }
-
-  if (diceRestart == true) {
-    dice = random(1, 7);
-  }
+  dice = random(1, 7);
 }
