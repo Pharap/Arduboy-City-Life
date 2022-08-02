@@ -369,18 +369,18 @@ void diceScreen() {
   diceRandom();
   delayDice = (millis() + (4 * 1000));
   didDiceRoll = true;
- }
 
- if (dice < 4 && dice > 0) {
-  money = money / 2;
- }
+  if (dice < 4 && dice > 0) {
+    money = money / 2;
+  }
 
- if (dice > 3 && dice < 7) {
-  money = money * 2;
- }
+  if (dice > 3 && dice < 7) {
+    money = money * 2;
+  }
 
- if (didDiceRoll) {
-  gameState = GameState::GameDiceDelay;
+  if (didDiceRoll) {
+    gameState = GameState::GameDiceDelay;
+  }
  }
 
   printMoney();
